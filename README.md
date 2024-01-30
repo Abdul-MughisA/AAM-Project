@@ -1,6 +1,37 @@
 # Project
 A'yaan Abdul-Mughis
 
+---
+
+## Idea
+
+### Main Information
+- Adventure with a clear narrative / escape room?
+- ~5 rooms (game ends once rooms passed / scope for variation?)
+   - Very simple combat
+   - Puzzles
+   - Finding things
+   - Inventory
+   - Each room has a unique code
+   - Progress and high scores saved in a text file
+   - ***OR*** menu selector at the beginning of the game
+- Can be replayed many times (with scope for some variation)
+    - **Game will be the same every time**
+    
+### Stakeholders
+- Mostly like 90s games (which I enjoy as well)
+
+### Style
+- Relaxing
+- Refreshing
+- Nostalgic
+- Designed in 90s style
+
+### Future-Proof
+If the game becomes too complicated, reduce game idea to a single hard room with a few combat scenes. More variation in the combat (i.e.: it wouldn't just be the same game every time).
+
+---
+
 ## Analysis
 
 ### Abstract
