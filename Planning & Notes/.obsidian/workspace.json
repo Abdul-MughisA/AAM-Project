@@ -13,9 +13,9 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Name.md",
+                "file": "Project Overview.md",
                 "mode": "source",
-                "source": false
+                "source": true
               }
             }
           }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Name.md",
+                "file": "Project Overview.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Name.md",
+                "file": "Project Overview.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Name.md"
+                "file": "Project Overview.md"
               }
             }
           }
@@ -148,6 +148,11 @@
   },
   "active": "f2bf1b1db491b2b5",
   "lastOpenFiles": [
+    "2024-01-30.md",
+    "Project Overview.md",
+    "Sans titre 1.canvas",
+    "Sans titre.canvas",
+    "Sans titre 2.canvas",
     "Name.md"
   ]
 }
