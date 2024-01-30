@@ -22,7 +22,7 @@ A'yaan Abdul-Mughis
 - Refreshing
 - Nostalgic
 - Designed in 90s style
-### Future-Proof
+### If Something Goes Wrong
 If the game becomes too complicated, reduce game idea to a single hard room with a few combat scenes. More variation in the combat (i.e.: it wouldn't just be the same game every time).
 
 ---
