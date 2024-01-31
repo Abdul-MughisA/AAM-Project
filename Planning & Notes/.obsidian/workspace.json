@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Markdown Syntax.md",
-                "mode": "preview",
+                "file": "Timeline.md",
+                "mode": "source",
                 "source": true
               }
             }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Markdown Syntax.md",
+                "file": "Timeline.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Markdown Syntax.md",
+                "file": "Timeline.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Markdown Syntax.md"
+                "file": "Timeline.md"
               }
             }
           }
@@ -148,10 +148,10 @@
   },
   "active": "f2bf1b1db491b2b5",
   "lastOpenFiles": [
-    "Timeline.md",
-    "Markdown Syntax.md",
     "Tasks.md",
     "Project Overview.md",
+    "Markdown Syntax.md",
+    "Timeline.md",
     "2024-01-30.md",
     "Sans titre 1.canvas",
     "Sans titre.canvas",
