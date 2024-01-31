@@ -1,8 +1,8 @@
+# Project Overview
 A'yaan Abdul-Mughis
 
 [If you can see this, you are a pro.]:#
 
----
 ## Idea
 
 ### Main Information
@@ -19,15 +19,15 @@ A'yaan Abdul-Mughis
     - **Game will be the same every time**
 ### Stakeholders
 - Mostly like 90s games (which I enjoy as well)
+- Have completed a form detailing what games they would like to see
 ### Style
 - Relaxing
 - Refreshing
 - Nostalgic
 - Designed in 90s style
-### If Something Goes Wrong
+### Safety Net
 If the game becomes too complicated, reduce game idea to a single hard room with a few combat scenes. More variation in the combat (i.e.: it wouldn't just be the same game every time).
 
----
 ## Analysis
 
 ### Abstract
