@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Research/Research.md",
-                "mode": "source",
+                "file": "Planning & Notes/Markdown Syntax.md",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Research/Research.md",
+                "file": "Planning & Notes/Markdown Syntax.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Research/Research.md",
+                "file": "Planning & Notes/Markdown Syntax.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Research/Research.md"
+                "file": "Planning & Notes/Markdown Syntax.md"
               }
             }
           }
@@ -148,9 +148,10 @@
   },
   "active": "0639affcc2aa6af2",
   "lastOpenFiles": [
+    "Planning & Notes/Requirements.md",
+    "Research/Research.md",
     "Research/Form 1/Form 1 Findings.md",
     "Planning & Notes/Useful Links.md",
-    "Research/Research.md",
     "README.md"
   ]
 }

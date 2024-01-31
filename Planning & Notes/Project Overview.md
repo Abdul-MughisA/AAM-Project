@@ -34,6 +34,7 @@ If the game becomes too complicated, reduce game idea to a single hard room with
 ### Abstract
 
 ### Research
+[Research](/Research/Research.md)
 > - _Look at a selection of games._
 > - _Draw out the main aspects._
 
@@ -42,9 +43,7 @@ Interview?
 
 ### Requirements
 
-|Must|Should|Could|Won't|
-|:-:|:-:|:-:|:-:|
-|This is something I must have.|This is something I should do.|This is something I could do.|This is something I won't do.|
+[Requirements](Requirements.md)
 
 - **JUSTIFY!**
 - Split into M1, M2, S1, S2—this way you can refer back to them.

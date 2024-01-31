@@ -5,7 +5,7 @@
 ### Form 1
 [Programming Project Iteration 1](https://docs.google.com/forms/d/1Lv5mmVu1mXq0nCoQfy5fuS6VjzCBzqz8s7A_yvjTWqc/edit)
 
-[Findings](Research/Form 1/Form 1 Findings.md)
+[Findings](/Research/Form%201/Form%201%20Findings.md)
 
 ## Gameplay Notes
 
