@@ -18,6 +18,7 @@ A'yaan Abdul-Mughis
 - Can be replayed many times (with scope for some variation)
     - **Game will be the same every time**
 ### Stakeholders
+- People I know including friends & family
 - Mostly like 90s games (which I enjoy as well)
 - Have completed a form detailing what games they would like to see
 ### Style
