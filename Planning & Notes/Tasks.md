@@ -7,9 +7,11 @@
 - [x] Recap and complete exercises on Python OOP
 
 ## Game Function
+- [ ] Code text that appears, disappears and changing depending on which button is pressed
+    - [ ] Collate a table with all the keycodes for PyGame
 - [ ] Code a grey room with a block that can move around
 - [ ] Make this into 5 rooms that can be traversed
-- [ ] Create inventory
+- [ ] Create a simple inventory
 
 ## Game Aesthetics
 - [ ] 

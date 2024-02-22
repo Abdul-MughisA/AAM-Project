@@ -10,7 +10,9 @@
 ## My Program Should
 **S1** Function without bugs or major errors.  
 **S2** Run at 60 FPS.  
-**S3** Be easy to understand.  
+**S3** Be easy to understand and play.  
+**S4** Have at least 800 lines of code, including comments.  
+**S5** 
 
 ## My Program Could
 **C1** Have sound effects.  
