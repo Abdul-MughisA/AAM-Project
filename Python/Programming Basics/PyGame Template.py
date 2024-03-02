@@ -24,7 +24,7 @@ NAVY = (0, 0, 128)
 size = (800, 600)
 screen = pygame.display.set_mode(size)
 
-pygame.display.set_caption("CAPTION")
+pygame.display.set_caption("Escapism")
 
 done = False
 clock = pygame.time.Clock()
@@ -37,7 +37,7 @@ while not done:
         #end if
     #end for
 
-    screen.fill(BLACK)
+    screen.fill(PURPLE)
 
     pygame.display.flip()
 
