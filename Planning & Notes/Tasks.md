@@ -21,7 +21,7 @@
 - [ ] Code a grey room with a block that can move around
 - [ ] Make this into 5 rooms that can be traversed
 - [ ] Create a simple inventory
-- [ ] Create a menu with options at the beginning (maybe options for parental controls?)
+- [x] Create a menu with options at the beginning (maybe options for parental controls?)
 
 
 ## Game Aesthetics
