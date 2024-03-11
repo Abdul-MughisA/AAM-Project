@@ -5,7 +5,7 @@
 - [x] Play a selection of games, noting findings
 - [x] Develop a clearer idea of game function
 - [x] Recap and complete exercises on Python OOP
-- [ ] Decide name
+- [x] Decide name
 
 ## Analysis
 - [ ] Interview stakeholders and write down Q and As
@@ -22,10 +22,10 @@
 - [ ] Make this into 5 rooms that can be traversed
 - [ ] Create a simple inventory
 - [x] Create a menu with options at the beginning (maybe options for parental controls?)
-
+- [ ] Create a dialogue box
 
 ## Game Aesthetics
-- [ ] 
+- [ ] Decide a colour scheme
 
 ## Testing
 - [ ] Create 60 tests that will make sure the program functions as expected
