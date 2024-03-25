@@ -15,7 +15,8 @@
 **S4** Have at least 800 lines of code, including comments.  
 **S5** Have a main menu with options.  
 **S6** Have multiple rooms within the game.  
-**S7** Have a character with an inventory.
+**S7** Have a character with an inventory.  
+**S8** Have different levels of difficulty.  
 
 ## My Program *Could*
 **C1** Have sound effects.  
@@ -26,7 +27,7 @@
 **C6** Have an elaborate colour scheme which matches the game storyline.  
 **C7** Have a start screen which explains how the game was made / how it works.  
 **C8** Have a dedicated download page with updates and information.  
-**C9** 
+**C9** Have a help section which explains the entire game and the intricate details.  
 
 ## My Program *Won't*
 **W1** Be in 3D, or try to simulate 3D.  

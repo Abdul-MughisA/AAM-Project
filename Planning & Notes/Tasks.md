@@ -16,13 +16,21 @@
 - [ ] Create inheritance diagrams
 
 ## Game Function
-- [ ] Code text that appears, disappears and changing depending on which button is pressed
-    - [ ] Collate a table with all the keycodes for PyGame
-- [ ] Code a grey room with a block that can move around
+- [x] Collate a table with all the keycodes for PyGame
+- [x] Code a grey room with a block that can move around
+- [ ] Create boundaries
+- [ ] Incorporate menu / develop menu
+- [x] Spawn random object
+- [ ] Spawn multiple random objects
+- [ ] Decide on basic items and ideas for escaping the room
+- [ ] Create timer
+- [ ] Stop game after a certain number of minutes
+- [ ] Create some ideas for levels (different number of minutes needed to solve the room and different objects)
 - [ ] Make this into 5 rooms that can be traversed
 - [ ] Create a simple inventory
 - [x] Create a menu with options at the beginning (maybe options for parental controls?)
 - [ ] Create a dialogue box
+- [ ] Learn how to use game art in the form of small PNGs
 
 ## Game Aesthetics
 - [ ] Decide a colour scheme
@@ -31,4 +39,4 @@
 - [ ] Create 60 tests that will make sure the program functions as expected
 
 ## Cosmetics
-- [ ] Assemble information into Word document
+- [ ] Assemble information into document

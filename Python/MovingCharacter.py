@@ -1,9 +1,9 @@
 import pygame
+import random
 
 pygame.init()
 
-#COLOURS
-
+# COLORS
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
@@ -29,6 +29,7 @@ pygame.display.set_caption("Escapism")
 done = False
 clock = pygame.time.Clock()
 
+
 class Player(pygame.sprite.Sprite):
     def __init__(self, plX, plY):
         super().__init__()
@@ -39,24 +40,30 @@ class Player(pygame.sprite.Sprite):
         self.rect.y = plY
         self.speedX = 0
         self.speedY = 0
-    #end def:constructor
-        
+
     def update(self):
-        self.rect.x = self.rect.x + self.speedX
-        self.rect.y = self.rect.y + self.speedY
-    #end def
+        self.rect.x += self.speedX
+        self.rect.y += self.speedY
 
     def setSpeedX(self, speed):
         self.speedX = speed
-    #end def
-        
+
     def setSpeedY(self, speed):
         self.speedY = speed
-    #end def
-#end class
+
+class Object(pygame.sprite.Sprite):
+    def __init__(self, obX, obY):
+        super().__init__()
+        self.image = pygame.Surface([10, 10])
+        self.image.fill(BLACK)
+        self.rect = self.image.get_rect()
+        self.rect.x = obX
+        self.rect.y = obY
+
+player = Player(0, 0)
+smallBox = Object(random.randint(0, 800), random.randint(0, 600))
 
 while not done:
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
@@ -65,25 +72,31 @@ while not done:
                 player.setSpeedX(-6)
             elif event.key == pygame.K_RIGHT:
                 player.setSpeedX(6)
-            elif event.key == pygame.K_LEFT:
+            elif event.key == pygame.K_UP:
                 player.setSpeedY(-6)
-            elif event.key == pygame.K_RIGHT:
+            elif event.key == pygame.K_DOWN:
                 player.setSpeedY(6)
-        #end if
-    #end for
+        elif event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                player.setSpeedX(0)
+            elif event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                player.setSpeedY(0)
 
     screen.fill(GREY)
 
     sprites = pygame.sprite.Group()
+    objects = pygame.sprite.Group()
 
-    player = Player(0, 0)
     sprites.add(player)
     sprites.draw(screen)
     sprites.update()
 
+    objects.add(smallBox)
+    objects.draw(screen)
+    objects.update()
+
     pygame.display.flip()
 
     clock.tick(60)
-#end while
 
 pygame.quit()

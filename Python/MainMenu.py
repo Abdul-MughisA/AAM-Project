@@ -1,4 +1,5 @@
 import pygame
+import MovingCharacter
 
 mainClock = pygame.time.Clock()
 from pygame.locals import *
