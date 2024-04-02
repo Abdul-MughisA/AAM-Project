@@ -44,6 +44,15 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.rect.x += self.speedX
         self.rect.y += self.speedY
+        if self.rect.x > 760:
+            self.rect.x = 760
+        if self.rect.x < 20:
+            self.rect.x = 20
+        if self.rect.y > 560:
+            self.rect.y = 560
+        if self.rect.y < 20:
+            self.rect.y = 20
+        
 
     def setSpeedX(self, speed):
         self.speedX = speed
@@ -62,6 +71,7 @@ class Object(pygame.sprite.Sprite):
 
 player = Player(0, 0)
 smallBox = Object(random.randint(0, 800), random.randint(0, 600))
+anotherBox = Object(random.randint(0, 800), random.randint(0, 600))
 
 while not done:
     for event in pygame.event.get():
@@ -92,6 +102,7 @@ while not done:
     sprites.update()
 
     objects.add(smallBox)
+    objects.add(anotherBox)
     objects.draw(screen)
     objects.update()
 

@@ -1,5 +1,4 @@
 import pygame
-import MovingCharacter
 
 mainClock = pygame.time.Clock()
 from pygame.locals import *
@@ -49,7 +48,7 @@ def mainMenu():
             if buttonOne.collidepoint((mx, my)):
                 pressColourOne = MAGENTA
                 if click:
-                    game()
+                    import MovingCharacter
             if buttonTwo.collidepoint((mx, my)):
                 pressColourTwo = MAGENTA
                 if click:
