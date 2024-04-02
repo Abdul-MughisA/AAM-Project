@@ -18,13 +18,16 @@
 ## Game Function
 - [x] Collate a table with all the keycodes for PyGame
 - [x] Code a grey room with a block that can move around
-- [ ] Create boundaries
+- [x] Create boundaries
 - [ ] Incorporate menu / develop menu
 - [x] Spawn random object
-- [ ] Spawn multiple random objects
+- [x] Spawn multiple random objects
+- [ ] Kill an object when going near it
+- [ ] Create text that appears and then disappears later
 - [ ] Decide on basic items and ideas for escaping the room
-- [ ] Create timer
-- [ ] Stop game after a certain number of minutes
+- [x] Create timer and display in corner of screen
+- [x] Make timer go red
+- [x] Stop game after a certain number of minutes
 - [ ] Create some ideas for levels (different number of minutes needed to solve the room and different objects)
 - [ ] Make this into 5 rooms that can be traversed
 - [ ] Create a simple inventory

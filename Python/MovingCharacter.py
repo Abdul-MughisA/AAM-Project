@@ -29,6 +29,13 @@ pygame.display.set_caption("Escapism")
 done = False
 clock = pygame.time.Clock()
 
+font = pygame.font.SysFont(None, 20)
+
+def drawText(text, font, colour, surface, x, y):
+    textobj = font.render(text, 1, colour)
+    textrect = textobj.get_rect()
+    textrect.topleft = (x, y)
+    surface.blit(textobj, textrect)
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, plX, plY):
@@ -60,6 +67,12 @@ class Player(pygame.sprite.Sprite):
     def setSpeedY(self, speed):
         self.speedY = speed
 
+    def getPlayerX(self):
+        return self.rect.x
+    
+    def getPlayerY(self):
+        return self.rect.y
+
 class Object(pygame.sprite.Sprite):
     def __init__(self, obX, obY):
         super().__init__()
@@ -69,9 +82,15 @@ class Object(pygame.sprite.Sprite):
         self.rect.x = obX
         self.rect.y = obY
 
+    def getObjectX(self):
+        return self.rect.x
+    
+    def getObjectY(self):
+        return self.rect.y
+
 player = Player(0, 0)
-smallBox = Object(random.randint(0, 800), random.randint(0, 600))
-anotherBox = Object(random.randint(0, 800), random.randint(0, 600))
+smallBox = Object(random.randint(20, 760), random.randint(20, 560))
+anotherBox = Object(random.randint(20, 760), random.randint(20, 560))
 
 while not done:
     for event in pygame.event.get():
@@ -93,6 +112,16 @@ while not done:
                 player.setSpeedY(0)
 
     screen.fill(GREY)
+
+    msElapsed = pygame.time.get_ticks()
+    secondsElapsed = msElapsed // 1000
+    if secondsElapsed >= 10:
+        drawText("TIME'S UP!", font, BLACK, screen, 0, 0)
+        # done = True
+    elif secondsElapsed % 2 == 0:
+        drawText(str(secondsElapsed), font, RED, screen, 0, 0)
+    else:
+        drawText(str(secondsElapsed), font, BLACK, screen, 0, 0)
 
     sprites = pygame.sprite.Group()
     objects = pygame.sprite.Group()

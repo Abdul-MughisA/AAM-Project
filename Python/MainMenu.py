@@ -48,7 +48,7 @@ def mainMenu():
             if buttonOne.collidepoint((mx, my)):
                 pressColourOne = MAGENTA
                 if click:
-                    import MovingCharacter
+                    game()
             if buttonTwo.collidepoint((mx, my)):
                 pressColourTwo = MAGENTA
                 if click:

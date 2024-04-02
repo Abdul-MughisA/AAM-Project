@@ -10,3 +10,4 @@
 |22 Feb|Work in lesson on requirements|<ul><li>Added some basic requirements</ul>|
 |4 Mar|Main menu|<ul><li>Learnt how to create main menu with animated buttons<li>Added comments so can remember how to do this later</ul>|
 |25 Mar|Coded and completed moving character|<ul><li>Added character that can move across the screen</ul>|
+|2 Apr|Slot 1 project work during holiday|<ul><li>Make sure generated boxes don't generate out of bounds<li>Found a way to make simple dropdowns<li>Made a time<li>Made the game end after the timer is finished</ul>|
