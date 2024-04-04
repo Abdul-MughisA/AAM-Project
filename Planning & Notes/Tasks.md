@@ -33,10 +33,11 @@
 - [ ] Create a simple inventory
 - [x] Create a menu with options at the beginning (maybe options for parental controls?)
 - [ ] Create a dialogue box
-- [ ] Learn how to use game art in the form of small PNGs
+- [x] Learn how to use game art in the form of small PNGs
 
 ## Game Aesthetics
 - [ ] Decide a colour scheme
+- [ ] Apply colour scheme to game elements
 
 ## Testing
 - [ ] Create 60 tests that will make sure the program functions as expected
