@@ -1,5 +1,6 @@
 import pygame
 import random
+import time
 
 pygame.init()
 
@@ -40,8 +41,7 @@ def drawText(text, font, colour, surface, x, y):
 class Player(pygame.sprite.Sprite):
     def __init__(self, plX, plY):
         super().__init__()
-        self.image = pygame.Surface([20, 20])
-        self.image.fill(WHITE)
+        self.image = pygame.image.load("Python/GameArt/Main.png")
         self.rect = self.image.get_rect()
         self.rect.x = plX
         self.rect.y = plY
@@ -86,11 +86,16 @@ class Object(pygame.sprite.Sprite):
         return self.rect.x
     
     def getObjectY(self):
-        return self.rect.y
+        return self.rect.y      
+
+sprites = pygame.sprite.Group()
+objects = pygame.sprite.Group()
 
 player = Player(0, 0)
+sprites.add(player)
 smallBox = Object(random.randint(20, 760), random.randint(20, 560))
-anotherBox = Object(random.randint(20, 760), random.randint(20, 560))
+objects.add(smallBox)
+# anotherBox = Object(random.randint(20, 760), random.randint(20, 560))
 
 while not done:
     for event in pygame.event.get():
@@ -123,17 +128,16 @@ while not done:
     else:
         drawText(str(secondsElapsed), font, BLACK, screen, 0, 0)
 
-    sprites = pygame.sprite.Group()
-    objects = pygame.sprite.Group()
-
-    sprites.add(player)
     sprites.draw(screen)
-    sprites.update()
-
-    objects.add(smallBox)
-    objects.add(anotherBox)
     objects.draw(screen)
+    sprites.update()
     objects.update()
+    # objects.add(anotherBox)
+
+    for allsprites in sprites:
+        hit = pygame.sprite.spritecollide(allsprites, objects, True)
+        if hit:
+            print(hit)
 
     pygame.display.flip()
 

@@ -22,7 +22,7 @@
 - [ ] Incorporate menu / develop menu
 - [x] Spawn random object
 - [x] Spawn multiple random objects
-- [ ] Kill an object when going near it
+- [x] Kill an object when going near it
 - [ ] Create text that appears and then disappears later
 - [ ] Decide on basic items and ideas for escaping the room
 - [x] Create timer and display in corner of screen
