@@ -13,3 +13,4 @@
 |2 Apr|Slot 1 Easter project work|<ul><li>Make sure generated boxes don't generate out of bounds<li>Found a way to make simple dropdowns<li>Made a time<li>Made the game end after the timer is finished</ul>|
 |4 Apr|Slot 2 Easter project work|<ul><li>More Thorpy commands<li>Imported graphics as PNG files made in online editor</ul>|
 |5 Apr|Slot 3 Easter project work|<ul><li>Fixed game art (didn't save because of a GitHub issue)<li>Character wouldn't die (fixed problem)</ul>|
+|11 Apr|Slot 4 & 5 Easter project|<ul><li>Coins<li>Score counter<li>Output to text file<li>Trying to add alerts</ul>|
