@@ -24,10 +24,10 @@
 - [x] Spawn multiple random objects
 - [x] Kill an object when going near it
 - [ ] Create text that appears and then disappears later
-- [ ] Decide on basic items and ideas for escaping the room
 - [x] Create timer and display in corner of screen
 - [x] Make timer go red
 - [x] Stop game after a certain number of minutes
+- [ ] Coins (with counter for score)
 - [ ] Create some ideas for levels (different number of minutes needed to solve the room and different objects)
 - [ ] Make this into 5 rooms that can be traversed
 - [ ] Create a simple inventory
@@ -35,9 +35,18 @@
 - [ ] Create a dialogue box
 - [x] Learn how to use game art in the form of small PNGs
 
+## User Experience
+- [x] Save text files
+- [ ] Read from text files
+
+## Scoring
+- [ ] Calculate a way of scoring
+- [ ] Decide on basic items and ideas for escaping the room
+
 ## Game Aesthetics
 - [ ] Decide a colour scheme
 - [ ] Apply colour scheme to game elements
+- [ ] Create characters and items using pixel art
 
 ## Testing
 - [ ] Create 60 tests that will make sure the program functions as expected

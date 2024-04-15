@@ -4,11 +4,12 @@ import pygame, thorpy as tp
 
 pygame.init()
 
-screen = pygame.display.set_mode((1200, 700))
+pygame.display.set_caption("Main Menu")
+screen = pygame.display.set_mode((500, 500), 0, 32)
 tp.init(screen, tp.theme_human) #bind screen to gui elements and set theme
 
 def before_gui(): #add here the things to do each frame before blitting gui elements
-    screen.fill((250,)*3)
+    screen.fill((250, 250, 250))
 
 alert = tp.Alert("Congratulations", "That was a nice click.\nNo, really, you performed well.")
 alert.generate_shadow(fast=False) #do some styling (optional)
