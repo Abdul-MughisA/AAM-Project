@@ -1,18 +1,15 @@
 import pygame
+import thorpy
 
 mainClock = pygame.time.Clock()
 from pygame.locals import *
 pygame.init()
 pygame.display.set_caption("Main Menu")
 screen = pygame.display.set_mode((500, 500), 0, 32)
+thorpy.init(screen, thorpy.theme_human) #bind screen to gui elements and set theme
+
 
 font = pygame.font.SysFont(None, 20)
-
-def drawText(text, font, colour, surface, x, y):
-    textobj = font.render(text, 1, colour)
-    textrect = textobj.get_rect()
-    textrect.topleft = (x, y)
-    surface.blit(textobj, textrect)
     
 click = False
 
@@ -33,11 +30,20 @@ PURPLE = (128, 0, 128)
 TEAL = (0, 128, 128)
 NAVY = (0, 0, 128)
 
+def drawText(text, font, colour, surface, x, y):
+    textobj = font.render(text, 1, colour)
+    textrect = textobj.get_rect()
+    textrect.topleft = (x, y)
+    surface.blit(textobj, textrect)
+
 def mainMenu():
     while True:
             screen.fill(MAROON)
             drawText("Main Menu", font, WHITE, screen, 20, 20)
             
+            if pygame.time.get_ticks() > 3000:
+                thorpy.Alert("Congratulations", "That was a nice click.\nNo, really, you performed well.").launch_alone()
+
             mx, my = pygame.mouse.get_pos()
 
             buttonOne = pygame.Rect(50, 100, 200, 50)
@@ -56,7 +62,7 @@ def mainMenu():
 
             pygame.draw.rect(screen, pressColourOne, buttonOne)
             pygame.draw.rect(screen, pressColourTwo, buttonTwo)
-            
+
             click = False
 
             for event in pygame.event.get():

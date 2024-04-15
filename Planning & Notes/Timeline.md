@@ -14,3 +14,4 @@
 |4 Apr|Slot 2 Easter project work|<ul><li>More Thorpy commands<li>Imported graphics as PNG files made in online editor</ul>|
 |5 Apr|Slot 3 Easter project work|<ul><li>Fixed game art (didn't save because of a GitHub issue)<li>Character wouldn't die (fixed problem)</ul>|
 |11 Apr|Slot 4 & 5 Easter project|<ul><li>Coins<li>Score counter<li>Output to text file<li>Trying to add alerts</ul>|
+|11 Apr|Slot 6 Easter project|<ul><li>Figured out how to use Thorpy!</ul>|
