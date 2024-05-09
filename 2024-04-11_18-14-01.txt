@@ -1,3 +1,0 @@
-3437
-This is a test.
-Writing to a text file in Python.

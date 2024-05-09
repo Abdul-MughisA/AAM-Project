@@ -27,13 +27,14 @@
 - [x] Create timer and display in corner of screen
 - [x] Make timer go red
 - [x] Stop game after a certain number of minutes
-- [ ] Coins (with counter for score)
+- [x] Coins (with counter for score)
 - [ ] Create some ideas for levels (different number of minutes needed to solve the room and different objects)
 - [ ] Make this into 5 rooms that can be traversed
 - [ ] Create a simple inventory
 - [x] Create a menu with options at the beginning (maybe options for parental controls?)
 - [ ] Create a dialogue box
 - [x] Learn how to use game art in the form of small PNGs
+- [ ] Create a rectangle to show time disappearing
 
 ## User Experience
 - [x] Save text files

@@ -1,7 +1,5 @@
 # Timeline
 
-[<ul><li></ul>]:#
-
 |Date|Title|Notes|
 |:--:|:---:|:---:|
 |**previously**|Own work in the lead-up to introduction|<ul><li>Created Google Form to poll stakeholders on preferences<li>Written abstract and formalised some ideas</ul>|
@@ -14,4 +12,6 @@
 |4 Apr|Slot 2 Easter project work|<ul><li>More Thorpy commands<li>Imported graphics as PNG files made in online editor</ul>|
 |5 Apr|Slot 3 Easter project work|<ul><li>Fixed game art (didn't save because of a GitHub issue)<li>Character wouldn't die (fixed problem)</ul>|
 |11 Apr|Slot 4 & 5 Easter project|<ul><li>Coins<li>Score counter<li>Output to text file<li>Trying to add alerts</ul>|
-|11 Apr|Slot 6 Easter project|<ul><li>Figured out how to use Thorpy!</ul>|
+|15 Apr|Slot 6 Easter project|<ul><li>Figured out how to use Thorpy!</ul>|
+|15 Apr|Slot 7 Easter project|<ul><li>More game art</ul>|
+|9 May|Computer Science lesson|<ul><li>Applying and testing a colour scheme for game elements<li>Trying to code a rectangle to indicate time remaining</ul>|

@@ -51,7 +51,7 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, plX, plY):
         super().__init__()
         # Loads player to display as art loaded
-        self.image = pygame.image.load("Python/GameArt/Main.png")
+        self.image = pygame.image.load("Python/GameArt/PlayerAlt.png")
         self.rect = self.image.get_rect()
         self.rect.x = plX
         self.rect.y = plY
@@ -169,12 +169,18 @@ while not done:
         drawText("TIME'S UP!", font, BLACK, screen, 10, 10)
         done = True
     # Changes colour of numbers (between red and black) in top corner indicating time elapsed
-    elif secondsElapsed % 3 == 0:
-        drawText(str(secondsElapsed), font, RED, screen, 10, 10)
-    elif secondsElapsed % 3 == 1:
-        drawText(str(secondsElapsed), font, BLUE, screen, 10, 10)
+    elif secondsElapsed >= 25:
+        if secondsElapsed % 2 == 0:
+            drawText(str(secondsElapsed), font, RED, screen, 10, 10)
+            pygame.draw.rect(screen, RED, [0, 0, 800*((30000-msElapsed) / 30000), 5], 0)
+        else:
+            drawText(str(secondsElapsed), font, WHITE, screen, 10, 10)
+            pygame.draw.rect(screen, WHITE, [0, 0, 800*((30000-msElapsed) / 30000), 5], 0)
     else:
         drawText(str(secondsElapsed), font, BLACK, screen, 10, 10)
+        pygame.draw.rect(screen, GREEN, [0, 0, 800*((30000-msElapsed) / 30000), 5], 0)
+
+
 
     sprites.draw(screen)
     objects.draw(screen)
