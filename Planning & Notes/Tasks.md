@@ -15,6 +15,9 @@
 - [ ] Create class diagrams
 - [ ] Create inheritance diagrams
 
+## Screenshots
+- [ ] Go back through and take screenshots of errors
+
 ## Game Function
 - [x] Collate a table with all the keycodes for PyGame
 - [x] Code a grey room with a block that can move around
