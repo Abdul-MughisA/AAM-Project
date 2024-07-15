@@ -182,6 +182,57 @@ def game():
     tree2 = Tree(200, 250)
     trees.add(tree1)
     trees.add(tree2)
+
+    class Rock(pygame.sprite.Sprite):
+        def __init__(self, x, y):
+            super().__init__()
+            self.image = pygame.Surface([50, 50])
+            self.image.fill(GREY)
+            self.rect = self.image.get_rect()
+            self.rect.x = x
+            self.rect.y = y
+        #end constructor
+
+        def highlight(self):
+            self.image.fill(BLACK)
+        #end def
+
+        def update(self):
+            self.image.fill(GREY)
+        #end def
+    #end class
+
+    rocks = pygame.sprite.Group()
+    rock1 = Rock(300, 200)
+    rock2 = Rock(450, 550)
+    rocks.add(rock1)
+    rocks.add(rock2)
+
+    class Log(pygame.sprite.Sprite):
+        def __init__(self, x, y):
+            super().__init__()
+            self.image = pygame.Surface([50, 50])
+            self.image.fill(MAGENTA)
+            self.rect = self.image.get_rect()
+            self.rect.x = x
+            self.rect.y = y
+        #end constructor
+
+        def highlight(self):
+            self.image.fill(PURPLE)
+        
+        def update(self):
+            self.image.fill(MAGENTA)
+    #end class
+
+    logs = pygame.sprite.Group()
+    log1 = Log(500, 500)
+    log2 = Log(50, 350)
+    logs.add(log1)
+    logs.add(log2)
+
+    # ALL ITEMS CAN'T GO OFF THE SCREEN
+    
     click = False
     while running:
         screen.fill((255, 255, 255))
@@ -197,6 +248,19 @@ def game():
                     tree.rect.x = mx - 25
                     tree.rect.y = my - 25
         #next tree
+
+        for rock in rocks:
+            if rock.rect.collidepoint(mx, my):
+                rock.highlight()
+        #next rock
+
+        for log in logs:
+            if log.rect.collidepoint(mx, my):
+                log.highlight()
+        #next log
+
+        if train.rect.x == 750 and train.rect.y == 550:
+            conclusion()
 
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -220,6 +284,10 @@ def game():
         trains.update()
         trees.draw(screen)
         trees.update()
+        rocks.draw(screen)
+        rocks.update()
+        logs.draw(screen)
+        logs.update()
         pygame.display.update()
         mainClock.tick(60)
 
@@ -237,5 +305,19 @@ def options():
                     running = False
         pygame.display.update()
         mainClock.tick(60)             
+
+def conclusion():
+    running = True
+    while running:
+        screen.fill((255, 255, 255))
+        drawText("Well done!", FontBahnschrift45, (0, 0, 0), screen, 20, 20)
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+            if event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    running = False
+        pygame.display.update()
+        mainClock.tick(60)
 
 game()
