@@ -1,3 +1,5 @@
-Couldn't figure out why my characters kept dying:
-Solution was to rearrange code so that the loop executed things in the right order.
-Some groups issue.
+ERROR 1: Trying to implement menu
+Copied and pasted same code twice but works only the first time
+Variable was not defined before accessed?
+
+ERROR 2: First tree killed on click, second tree killed on hover
