@@ -4,7 +4,7 @@ mainClock = pygame.time.Clock()
 from pygame.locals import *
 pygame.init()
 pygame.display.set_caption("Main Menu")
-screen = pygame.display.set_mode((800, 600), 0, 32)
+screen = pygame.display.set_mode((1000, 1000), 0, 32)
 
 # FONTS
 FontSystem10 = pygame.font.SysFont(None, 10)
@@ -110,6 +110,9 @@ def levels():
         mainClock.tick(60)
 #end def
 
+def startScreen():
+    pass
+
 def game():
     running = True
     class Train(pygame.sprite.Sprite):
@@ -139,10 +142,10 @@ def game():
                 self.rect.x = 0
             elif self.rect.y < 0:
                 self.rect.y = 0
-            elif self.rect.x > 750:
-                self.rect.x = 750
-            elif self.rect.y > 550:
-                self.rect.y = 550
+            elif self.rect.x > 950:
+                self.rect.x = 950
+            elif self.rect.y > 950:
+                self.rect.y = 950
 
     #end class
     trains = pygame.sprite.Group()
@@ -174,6 +177,14 @@ def game():
                     self.rect.y -= self.rect.y % 50
                 if self.rect.y % 50 > 25:
                     self.rect.y += (1 - self.rect.y % 50)
+            if self.rect.x < 0:
+                self.rect.x = 0
+            elif self.rect.y < 0:
+                self.rect.y = 0
+            elif self.rect.x > 950:
+                self.rect.x = 950
+            elif self.rect.y > 950:
+                self.rect.y = 950
         #end def
     #end class
 
@@ -198,7 +209,15 @@ def game():
         #end def
 
         def update(self):
-            self.image.fill(GREY)
+            self.image.fill(GREY)           
+            if self.rect.x < 0:
+                self.rect.x = 0
+            elif self.rect.y < 0:
+                self.rect.y = 0
+            elif self.rect.x > 950:
+                self.rect.x = 950
+            elif self.rect.y > 950:
+                self.rect.y = 950
         #end def
     #end class
 
@@ -223,6 +242,14 @@ def game():
         
         def update(self):
             self.image.fill(MAGENTA)
+            if self.rect.x < 0:
+                self.rect.x = 0
+            elif self.rect.y < 0:
+                self.rect.y = 0
+            elif self.rect.x > 950:
+                self.rect.x = 950
+            elif self.rect.y > 950:
+                self.rect.y = 950
     #end class
 
     logs = pygame.sprite.Group()
@@ -230,8 +257,6 @@ def game():
     log2 = Log(50, 350)
     logs.add(log1)
     logs.add(log2)
-
-    # ALL ITEMS CAN'T GO OFF THE SCREEN
     
     click = False
     while running:
