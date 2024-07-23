@@ -268,13 +268,14 @@ def game():
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
                     running = False
-                if event.key == K_DOWN:
+                # WORKS WITH WASD and arrow keys
+                if event.key == K_s or event.key == K_DOWN:
                     train.moveDown()
-                if event.key == K_UP:
+                if event.key == K_w or event.key == K_UP:
                     train.moveUp()
-                if event.key == K_LEFT:
+                if event.key == K_a or event.key == K_LEFT:
                     train.moveLeft()
-                if event.key == K_RIGHT:
+                if event.key == K_d or event.key == K_RIGHT:
                     train.moveRight()
             if event.type == MOUSEBUTTONDOWN:
                 click = True
