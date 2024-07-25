@@ -346,4 +346,4 @@ def conclusion():
         pygame.display.update()
         mainClock.tick(60)
 
-game()
+options()

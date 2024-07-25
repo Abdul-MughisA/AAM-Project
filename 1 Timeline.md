@@ -16,3 +16,4 @@
 |15 Apr|Slot 7 Easter project|<ul><li>More game art</ul>|
 |9 May|Computer Science lesson|<ul><li>Applying and testing a colour scheme for game elements<li>Trying to code a rectangle to indicate time remaining</ul>|
 |14 July|Slot 1 Summer|<ul><li>Train implemented as black box<li>Trees implemented as green box</ul>|
+|25 July|Stakeholder meeting|<ul><li>Changed from coal-dragging mechanic to boost lever to fit with TfL vibe<li>https://youtu.be/3UxnelT9aCo?list=PLsk-HSGFjnaGQq7ybM8Lgkh5EMxUWPm2i</ul>|
