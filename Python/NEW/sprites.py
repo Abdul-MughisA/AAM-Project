@@ -9,8 +9,22 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.Surface((TILESIZE, TILESIZE))
         self.image.fill(YELLOW)
         self.rect = self.image.get_rect()
-        self.x = x
-        self.y = y
+        self.vx, self.vy = 0, 0
+        self.x = x * TILESIZE
+        self.y = y * TILESIZE
+
+
+    def get_keys(self):
+        self.vx, self.vy = 0, 0
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+            self.vx = -PLAYER_SPEED
+        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+            self.vx = PLAYER_SPEED
+        if keys[pygame.K_UP] or keys[pygame.K_w]:
+            self.vy = -PLAYER_SPEED
+        if keys[pygame.K_DOWN] or keys[pygame.K_s]:
+            self.vy = PLAYER_SPEED
 
     # d variables set to 0 when they are unspecified
     def move(self, dx=0, dy=0):
@@ -26,8 +40,10 @@ class Player(pygame.sprite.Sprite):
         return False
 
     def update(self):
-        self.rect.x = self.x * TILESIZE
-        self.rect.y = self.y * TILESIZE
+        self.get_keys()
+        self.x += self.vx * self.game.dt
+        self.y += self.vy * self.game.dt
+        self.rect.topleft = ((self.x, self.y))
 
 class Wall(pygame.sprite.Sprite):
     def __init__(self, game, x, y):

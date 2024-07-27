@@ -9,7 +9,6 @@ from sprites import *
 class Game:
     def __init__(self):
         # initialises the game window
-        self.running = True
         pygame.init()
         pygame.mixer.init() # initialise sound
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -32,7 +31,6 @@ class Game:
         # creates all objects
         self.all_sprites = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
-        self.player = Player(self, 7, 7)
         for row, tiles in enumerate(self.map_data):
             for col, tile in enumerate(tiles):
                 if tile == '1':
@@ -43,13 +41,16 @@ class Game:
 
 
     def run(self):
-        self.clock.tick(FPS)
         self.playing = True
         while self.playing:
-            self.clock.tick(FPS)
+            self.dt = self.clock.tick(FPS) / 1000
             self.events()
             self.update()
             self.draw()
+
+    def quit():
+        pygame.quit()
+        sys.exit()
 
     def update(self):
         self.all_sprites.update()
@@ -57,20 +58,21 @@ class Game:
     def events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                if self.playing:
-                    self.playing = False
-                self.running = False
+                self.quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    self.quit()
             
             # key events for WASD and arrow keys
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT or event.key == pygame.K_a:
-                    self.player.move(dx=-1)
-                if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-                    self.player.move(dx=1)
-                if event.key == pygame.K_UP or event.key == pygame.K_w:
-                    self.player.move(dy=-1)
-                if event.key == pygame.K_DOWN or event.key == pygame.K_s:
-                    self.player.move(dy=1)
+            # if event.type == pygame.KEYDOWN:
+            #     if event.key == pygame.K_LEFT or event.key == pygame.K_a:
+            #         self.player.move(dx=-1)
+            #     if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+            #         self.player.move(dx=1)
+            #     if event.key == pygame.K_UP or event.key == pygame.K_w:
+            #         self.player.move(dy=-1)
+            #     if event.key == pygame.K_DOWN or event.key == pygame.K_s:
+            #         self.player.move(dy=1)
 
 
     # draws the grey lines to show the grid
@@ -81,12 +83,11 @@ class Game:
             pygame.draw.line(self.screen, SILVER, (0, y), (WIDTH, y))
         
     def draw(self):
-        self.screen.fill(BLACK)
+        self.screen.fill(BGCOLOUR)
         self.draw_grid()
         self.all_sprites.draw(self.screen)
-        
         pygame.display.flip()
-
+        
     def show_start_screen(self):
         pass
 
@@ -95,8 +96,6 @@ class Game:
 
 game = Game()
 game.show_start_screen()
-while game.running:
+while True:
     game.new()
     game.show_gameover_screen()
-
-pygame.quit()
