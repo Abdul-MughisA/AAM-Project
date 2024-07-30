@@ -5,6 +5,7 @@ from os import path
 # import all details from other files without having to specify the originating file every time
 from settings import *
 from sprites import *
+from tilemap import *
 
 class Game:
     def __init__(self):
@@ -20,18 +21,14 @@ class Game:
     # loads in the text file
     def load_data(self):
         game_folder = path.dirname(__file__) # sets the map data
-        self.map_data = []  # map data stored in this variable
-        # copies data from map file into variable
-        with open(path.join(game_folder, 'map.txt'), 'rt') as f:
-            for line in f:
-                self.map_data.append(line)
+        self.map = Map(path.join(game_folder, 'map.txt'))
 
 
     def new(self):
         # creates all objects
         self.all_sprites = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
-        for row, tiles in enumerate(self.map_data):
+        for row, tiles in enumerate(self.map.data):
             for col, tile in enumerate(tiles):
                 if tile == '1':
                     Wall(self, col, row)
