@@ -16,8 +16,8 @@ TEAL = (0, 128, 128)
 NAVY = (0, 0, 128)
 
 TITLE = "Logic Express"
-WIDTH = 1024
-HEIGHT = 768
+WIDTH = 512
+HEIGHT = 384
 FPS = 60
 BGCOLOUR = GREY
 
