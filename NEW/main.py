@@ -21,7 +21,9 @@ class Game:
     # loads in the text file
     def load_data(self):
         game_folder = path.dirname(__file__) # sets the map data
+        img_folder = path.join(game_folder, '_Game Art')
         self.map = Map(path.join(game_folder, 'map2.txt'))
+        self.player_img = pygame.image.load(path.join(img_folder, PLAYER_IMG)).convert_alpha()
 
 
     def new(self):
