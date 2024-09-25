@@ -21,7 +21,7 @@ class Game:
     # loads in the text file
     def load_data(self):
         game_folder = path.dirname(__file__) # sets the map data
-        self.map = Map(path.join(game_folder, 'map.txt'))
+        self.map = Map(path.join(game_folder, 'map2.txt'))
 
 
     def new(self):
@@ -34,8 +34,8 @@ class Game:
                     Wall(self, col, row)
                 if tile == 'P':
                     self.player = Player(self, col, row)
+        self.camera = Camera(self.map.width, self.map.height)
         self.run() # game runs every time it is called
-
 
     def run(self):
         self.playing = True
@@ -51,6 +51,7 @@ class Game:
 
     def update(self):
         self.all_sprites.update()
+        self.camera.update(self.player)
 
     def events(self):
         for event in pygame.event.get():
@@ -82,7 +83,8 @@ class Game:
     def draw(self):
         self.screen.fill(BGCOLOUR)
         self.draw_grid()
-        self.all_sprites.draw(self.screen)
+        for sprite in self.all_sprites:
+            self.screen.blit(sprite.image, self.camera.apply(sprite))
         pygame.display.flip()
         
     def show_start_screen(self):

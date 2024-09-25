@@ -27,3 +27,8 @@
 - Set Python to print train co-ordinates
 - Realised that I got X and Y flipped
 - Changed code, and now works as expected
+
+## Error 6
+- Code not working after scrolling map
+### Solution
+- Re-order code
