@@ -12,7 +12,7 @@ class Game:
         # initialises the game window
         pygame.init()
         pygame.mixer.init() # initialise sound
-        self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+        self.screen = pygame.display.set_mode((WIDTH, HEIGHT)) # uses variables from settings.py
         pygame.display.set_caption(TITLE)
         self.clock = pygame.time.Clock()
         pygame.key.set_repeat(500, 100)
@@ -87,6 +87,7 @@ class Game:
         self.draw_grid()
         for sprite in self.all_sprites:
             self.screen.blit(sprite.image, self.camera.apply(sprite))
+        pygame.draw.rect(self.screen, WHITE, self.player.rect, 2)
         pygame.display.flip()
         
     def show_start_screen(self):
