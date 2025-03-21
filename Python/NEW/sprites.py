@@ -14,14 +14,30 @@ class Player(pygame.sprite.Sprite):
 
     # d variables set to 0 when they are unspecified
     def move(self, dx=0, dy=0):
-        if not self.collide_with_walls(dx, dy):
+        if not self.collide_with_walls(dx, dy) and not self.collide_with_obstacles(dx, dy):
             self.x += dx
             self.y += dy
+            if self.collide_with_flag():
+                self.game.level += 1
+                self.game.load_data()
+                self.game.new()
 
     # checks peeks ahead to walls, and does not move if wall found
     def collide_with_walls(self, dx=0, dy=0):
         for wall in self.game.walls:
             if wall.x == self.x + dx and wall.y == self.y + dy:
+                return True
+        return False
+    
+    def collide_with_obstacles(self, dx=0, dy=0):
+        for obstacle in self.game.obstacles:
+            if obstacle.x == self.x + dx and obstacle.y == self.y + dy:
+                return True
+        return False
+
+    def collide_with_flag(self):
+        for flag in self.game.flags:
+            if flag.x == self.x and flag.y == self.y:
                 return True
         return False
 
@@ -43,3 +59,34 @@ class Wall(pygame.sprite.Sprite):
         # when object made, pass TILE as argument, not pixel
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
+
+class Obstacle(pygame.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self.groups = game.all_sprites, game.obstacles
+        pygame.sprite.Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = pygame.Surface((TILESIZE, TILESIZE))
+        self.image.fill(RED)
+        self.rect = self.image.get_rect()
+        self.x = x
+        self.y = y
+
+        # when object made, pass TILE as argument, not pixel
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE
+
+class Flag(pygame.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self.groups = game.all_sprites, game.flags
+        pygame.sprite.Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = pygame.Surface((TILESIZE, TILESIZE))
+        self.image.fill(BLUE)
+        self.rect = self.image.get_rect()
+        self.x = x
+        self.y = y
+
+        # when object made, pass TILE as argument, not pixel
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE
+

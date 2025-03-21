@@ -10,6 +10,7 @@ class Game:
     def __init__(self):
         # initialises the game window
         self.running = True
+        self.level = 1
         pygame.init()
         pygame.mixer.init() # initialise sound
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -23,7 +24,8 @@ class Game:
         game_folder = path.dirname(__file__) # sets the map data
         self.map_data = []  # map data stored in this variable
         # copies data from map file into variable
-        with open(path.join(game_folder, 'map.txt'), 'rt') as f:
+        map_file = path.join(game_folder, f"map{self.level}.txt")
+        with open(map_file, 'rt') as f:
             for line in f:
                 self.map_data.append(line)
 
@@ -32,13 +34,18 @@ class Game:
         # creates all objects
         self.all_sprites = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
-        self.player = Player(self, 7, 7)
+        self.obstacles = pygame.sprite.Group()
+        self.flags = pygame.sprite.Group()
         for row, tiles in enumerate(self.map_data):
             for col, tile in enumerate(tiles):
                 if tile == '1':
                     Wall(self, col, row)
                 if tile == 'P':
                     self.player = Player(self, col, row)
+                if tile == 'A':
+                    Obstacle(self, col, row)
+                if tile == 'X':
+                    Flag(self, col, row)
         self.run() # game runs every time it is called
 
 
@@ -86,17 +93,75 @@ class Game:
         self.all_sprites.draw(self.screen)
         
         pygame.display.flip()
+    
+    def wait_for_click(self, button_rect):
+        waiting = True
+        while waiting:
+            self.clock.tick(FPS)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    waiting = False
+                    self.running = False
+                    return False
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if button_rect.collidepoint(event.pos):
+                        return True
+
+    def wait_for_key(self):
+        waiting = True
+        while waiting:
+            self.clock.tick(FPS)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    waiting = False
+                    self.running = False
+                    return False
+                if event.type == pygame.KEYDOWN:
+                    return True
+    
+    def draw_text(self, text, size, colour, x, y):
+        font = pygame.font.Font(pygame.font.match_font('arial'), size)
+        text_surface = font.render(text, True, colour)
+        text_rect = text_surface.get_rect()
+        text_rect.midtop = (x, y)
+        self.screen.blit(text_surface, text_rect)
 
     def show_start_screen(self):
-        pass
+        play_button = pygame.Rect(WIDTH / 2 - 50, HEIGHT / 2, 100, 50)
+        while True:
+            self.screen.fill(BLACK)
+            self.draw_text(TITLE, 48, WHITE, WIDTH / 2, HEIGHT / 2 - 50)
+
+            mous_pos = pygame.mouse.get_pos()
+            if play_button.collidepoint(mous_pos):
+                pygame.draw.rect(self.screen, GREY, play_button)
+            else:
+                pygame.draw.rect(self.screen, WHITE, play_button)
+
+            self.draw_text("Play", 22, BLACK, WIDTH / 2, HEIGHT / 2 + 10)
+            pygame.display.flip()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.running = False
+                    return False
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if play_button.collidepoint(event.pos):
+                        return True
+            self.clock.tick(FPS)
 
     def show_gameover_screen(self):
-        pass
+        self.screen.fill(BLACK)
+        self.draw_text("GAME OVER", 48, WHITE, WIDTH / 2, HEIGHT / 4)
+        self.draw_text("Press any key to play again", 22, WHITE, WIDTH / 2, HEIGHT / 2)
+        pygame.display.flip()
+        return self.wait_for_key()
 
 game = Game()
-game.show_start_screen()
 while game.running:
-    game.new()
-    game.show_gameover_screen()
+    playing = game.show_start_screen()
+    while playing and game.running:
+        game.new()
+        playing = game.show_gameover_screen()
 
 pygame.quit()
