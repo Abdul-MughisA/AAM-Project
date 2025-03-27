@@ -2,4 +2,6 @@
 1 - wall
 P - player
 A - obstacle type A
+
 X - flag
+, - grass

@@ -11,6 +11,7 @@ class Game:
         # initialises the game window
         self.running = True
         self.level = 1
+        self.selected_sprite = None
         pygame.init()
         pygame.mixer.init() # initialise sound
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -36,6 +37,7 @@ class Game:
         self.walls = pygame.sprite.Group()
         self.obstacles = pygame.sprite.Group()
         self.flags = pygame.sprite.Group()
+        self.grass = pygame.sprite.Group()
         for row, tiles in enumerate(self.map_data):
             for col, tile in enumerate(tiles):
                 if tile == '1':
@@ -46,6 +48,8 @@ class Game:
                     Obstacle(self, col, row)
                 if tile == 'X':
                     Flag(self, col, row)
+                if tile == ',':
+                    Grass(self, col, row)
         self.run() # game runs every time it is called
 
 
@@ -68,16 +72,28 @@ class Game:
                     self.playing = False
                 self.running = False
             
-            # key events for WASD and arrow keys
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT or event.key == pygame.K_a:
-                    self.player.move(dx=-1)
-                if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-                    self.player.move(dx=1)
-                if event.key == pygame.K_UP or event.key == pygame.K_w:
-                    self.player.move(dy=-1)
-                if event.key == pygame.K_DOWN or event.key == pygame.K_s:
-                    self.player.move(dy=1)
+            # selects a sprite
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = event.pos
+                # cycles through all sprites
+                for sprite in self.all_sprites:
+                    if sprite.rect.collidepoint(mouse_pos):
+                        self.selected_sprite = sprite
+                        # selects the first sprite in the cycle that happens to be clicked
+                        break
+            
+            # moves the selected sprite
+            elif event.type == pygame.KEYDOWN:
+                if hasattr(self, 'selected_sprite') and self.selected_sprite is not None:
+                    # key events for WASD and arrow keys
+                    if event.key == pygame.K_LEFT or event.key == pygame.K_a:
+                        self.selected_sprite.move(dx=-1)
+                    if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+                        self.selected_sprite.move(dx=1)
+                    if event.key == pygame.K_UP or event.key == pygame.K_w:
+                        self.selected_sprite.move(dy=-1)
+                    if event.key == pygame.K_DOWN or event.key == pygame.K_s:
+                        self.selected_sprite.move(dy=1)
 
 
     # draws the grey lines to show the grid
@@ -127,20 +143,25 @@ class Game:
         self.screen.blit(text_surface, text_rect)
 
     def show_start_screen(self):
+        # draw the original play button
         play_button = pygame.Rect(WIDTH / 2 - 50, HEIGHT / 2, 100, 50)
         while True:
             self.screen.fill(BLACK)
-            self.draw_text(TITLE, 48, WHITE, WIDTH / 2, HEIGHT / 2 - 50)
+            self.draw_text(TITLE, 30, WHITE, WIDTH / 2, HEIGHT / 2 - 50)
 
+            # determine mouse position
             mous_pos = pygame.mouse.get_pos()
             if play_button.collidepoint(mous_pos):
+                # draws the box grey if the mouse is over it
                 pygame.draw.rect(self.screen, GREY, play_button)
             else:
+                # but draws a white box if not
                 pygame.draw.rect(self.screen, WHITE, play_button)
 
             self.draw_text("Play", 22, BLACK, WIDTH / 2, HEIGHT / 2 + 10)
             pygame.display.flip()
 
+            # this loop waits for the user to click the play button
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
