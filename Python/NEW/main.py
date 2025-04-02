@@ -12,8 +12,15 @@ class Game:
         self.running = True
         self.level = 1
         self.selected_sprite = None
+        self.music_on = True
         pygame.init()
         pygame.mixer.init() # initialise sound
+
+        # load music
+        music_path = path.join(path.dirname(__file__), 'music.mp3')
+        pygame.mixer.music.load(music_path)
+        pygame.mixer.music.play(-1) # loop infinitely
+
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption(TITLE)
         self.clock = pygame.time.Clock()
@@ -32,8 +39,9 @@ class Game:
 
 
     def new(self):
+        self.level_start_time = pygame.time.get_ticks() # record level start time
         # creates all objects
-        self.all_sprites = pygame.sprite.Group()
+        self.all_sprites = pygame.sprite.LayeredUpdates()
         self.walls = pygame.sprite.Group()
         self.obstacles = pygame.sprite.Group()
         self.flags = pygame.sprite.Group()
@@ -77,13 +85,15 @@ class Game:
                 mouse_pos = event.pos
                 # cycles through all sprites
                 for sprite in self.all_sprites:
-                    if sprite.rect.collidepoint(mouse_pos):
+                    if sprite.rect.collidepoint(mouse_pos) and getattr(sprite, 'selectable', True):
                         self.selected_sprite = sprite
                         # selects the first sprite in the cycle that happens to be clicked
                         break
             
             # moves the selected sprite
             elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    self.pause_settings()
                 if hasattr(self, 'selected_sprite') and self.selected_sprite is not None:
                     # key events for WASD and arrow keys
                     if event.key == pygame.K_LEFT or event.key == pygame.K_a:
@@ -107,7 +117,22 @@ class Game:
         self.screen.fill(BLACK)
         self.draw_grid()
         self.all_sprites.draw(self.screen)
-        
+
+        # Draw level label
+        self.draw_text("Level: " + str(self.level), 22, WHITE, 50, 10)
+
+        # Calculate and display time elapsed with every level
+        elapsed_ms = pygame.time.get_ticks() - self.level_start_time
+        self.draw_text("Time: " + str(elapsed_ms) + "ms", 22, WHITE, 300, 10)
+
+        # Calculate and display score based on time
+        level_score = round(100000/(elapsed_ms/1000 + 20) + 100)
+        self.draw_text("Score: " + str(level_score), 22, WHITE, 550, 10)
+
+        if self.selected_sprite is not None:
+            overlay = pygame.Surface((self.selected_sprite.rect.width, self.selected_sprite.rect.height), pygame.SRCALPHA)
+            overlay.fill((0, 0, 0, 100))
+            self.screen.blit(overlay, self.selected_sprite.rect)
         pygame.display.flip()
     
     def wait_for_click(self, button_rect):
@@ -177,6 +202,49 @@ class Game:
         self.draw_text("Press any key to play again", 22, WHITE, WIDTH / 2, HEIGHT / 2)
         pygame.display.flip()
         return self.wait_for_key()
+    
+    def show_congrats_screen(self, score, elapsed_ms):
+        self.screen.fill(BLACK)
+        self.draw_text("Congratulations!", 48, WHITE, WIDTH / 2, HEIGHT / 4)
+        self.draw_text("You completed the level!", 22, WHITE, WIDTH / 2, HEIGHT / 2)
+        self.draw_text("Your score: " + str(score), 22, WHITE, WIDTH / 2, HEIGHT / 2 + 40)
+        self.draw_text("Time taken: " + str(elapsed_ms//1000) + "s", 22, WHITE, WIDTH / 2, HEIGHT * 3/4)
+        pygame.display.flip()
+        return self.wait_for_key()
+    
+    def pause_settings(self):
+        # Record when pause begins so we can adjust elapsed time later
+        pause_start = pygame.time.get_ticks()
+        paused = True
+        while paused:
+            self.clock.tick(FPS)
+            self.screen.fill(BLACK)
+            # Display a combined pause/settings menu
+            self.draw_text("PAUSED / SETTINGS", 48, WHITE, WIDTH / 2, HEIGHT / 4)
+            music_status = "ON" if self.music_on else "OFF"
+            self.draw_text("Music: " + music_status, 30, WHITE, WIDTH / 2, HEIGHT / 2)
+            self.draw_text("Press M to toggle music", 22, WHITE, WIDTH / 2, HEIGHT / 2 + 40)
+            self.draw_text("Press ESC to resume", 22, WHITE, WIDTH / 2, HEIGHT / 2 + 80)
+            pygame.display.flip()
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    paused = False
+                    self.running = False
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        paused = False
+                    elif event.key == pygame.K_m:
+                        # Toggle music on/off
+                        if self.music_on:
+                            pygame.mixer.music.pause()
+                            self.music_on = False
+                        else:
+                            pygame.mixer.music.unpause()
+                            self.music_on = True
+        # Adjust the level_start_time so the paused period isn’t counted
+        pause_duration = pygame.time.get_ticks() - pause_start
+        self.level_start_time += pause_duration
 
 game = Game()
 while game.running:
