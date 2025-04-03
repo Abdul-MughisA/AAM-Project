@@ -43,9 +43,11 @@ class Game:
         # creates all objects
         self.all_sprites = pygame.sprite.LayeredUpdates()
         self.walls = pygame.sprite.Group()
-        self.obstacles = pygame.sprite.Group()
+        self.stones = pygame.sprite.Group()
         self.flags = pygame.sprite.Group()
         self.grass = pygame.sprite.Group()
+        self.logs = pygame.sprite.Group()
+        self.waters = pygame.sprite.Group()
         for row, tiles in enumerate(self.map_data):
             for col, tile in enumerate(tiles):
                 if tile == '1':
@@ -53,11 +55,15 @@ class Game:
                 if tile == 'P':
                     self.player = Player(self, col, row)
                 if tile == 'A':
-                    Obstacle(self, col, row)
+                    Stone(self, col, row)
                 if tile == 'X':
                     Flag(self, col, row)
                 if tile == ',':
                     Grass(self, col, row)
+                if tile == 'L':
+                    Log(self, col, row)
+                if tile == 'W':
+                    Water(self, col, row)
         self.run() # game runs every time it is called
 
 

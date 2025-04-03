@@ -2,6 +2,7 @@
 1 - wall
 P - player
 A - obstacle type A
-
+L - log
+W - water
 X - flag
 , - grass
