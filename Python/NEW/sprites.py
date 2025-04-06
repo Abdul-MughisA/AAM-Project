@@ -3,7 +3,7 @@ from settings import *
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
-        self._layer = 3
+        self._layer = 8
         self.groups = game.all_sprites
         pygame.sprite.Sprite.__init__(self, self.groups)
         self.game = game
