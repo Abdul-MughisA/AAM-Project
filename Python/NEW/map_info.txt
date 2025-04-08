@@ -6,3 +6,4 @@ L - log
 W - water
 X - flag
 , - grass
+S - portal

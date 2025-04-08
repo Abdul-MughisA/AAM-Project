@@ -1,3 +1,4 @@
+# Set colours
 BLACK    = (0, 0, 0)
 WHITE    = (255, 255, 255)
 RED      = (255, 0, 0)
@@ -31,12 +32,11 @@ LIGHTNAVY   = (176, 224, 230)
 LIGHTOLIVE  = (255, 255, 224)
 LIGHTTEAL   = (224, 255, 255)
 
-TITLE    = "Logic Express"
-FPS      = 60
+TITLE    = "Floral Fever"
+FPS      = 60 # Screen refresh rate
 BGCOLOUR = GREY
 
-TILESIZE = 32
-
+TILESIZE = 32 # Size of each tile in pixels
 WIDTH    = 18 * TILESIZE
 HEIGHT   = 11 * TILESIZE
 

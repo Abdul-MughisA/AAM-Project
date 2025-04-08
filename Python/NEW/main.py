@@ -2,52 +2,61 @@ import pygame
 import sys
 from os import path
 
-# import all details from other files without having to specify the originating file every time
+# Import all details from other files without having to specify the originating file every time
 from settings import *
 from sprites import *
 
 class Game:
     def __init__(self):
-        # initialises the game window
+        # Initialises the game window
         self.running = True
         self.level = 1
         self.selected_sprite = None
         self.music_on = True
+        self.total_score = 0
         pygame.init()
-        pygame.mixer.init() # initialise sound
+        pygame.mixer.init()  # Initialises sound
 
-        # load music
+        # Load music file from current directory
         music_path = path.join(path.dirname(__file__), 'music.mp3')
         pygame.mixer.music.load(music_path)
-        pygame.mixer.music.play(-1) # loop infinitely
+        pygame.mixer.music.play(-1)  # loop infinitely
 
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption(TITLE)
         self.clock = pygame.time.Clock()
-        pygame.key.set_repeat(500, 100)
+        pygame.key.set_repeat(500, 100) # allows press and hold to work for keys
+
+        # Load large images for floor, title and tutorial
+        self.floor_image = pygame.image.load(path.join(path.dirname(__file__), "Floor.png")).convert_alpha()
+        self.title_image = pygame.image.load(path.join(path.dirname(__file__), "Title.png")).convert_alpha()
+        self.tutorial_image = pygame.image.load(path.join(path.dirname(__file__), "Tutorial.png")).convert_alpha()
+
         self.load_data()
 
-    # loads in the text file
+    # Loads in data from the text map files
     def load_data(self):
-        game_folder = path.dirname(__file__) # sets the map data
+        game_folder = path.dirname(__file__) # Sets the map data
         self.map_data = []  # map data stored in this variable
-        # copies data from map file into variable
-        map_file = path.join(game_folder, f"map{self.level}.txt")
-        with open(map_file, 'rt') as f:
+        # Copies data from map file into variable
+        map_file = path.join(game_folder, f"map{self.level}.txt") # Opens map based on current level
+        with open(map_file, 'rt') as f: # Opens file in text mode
             for line in f:
-                self.map_data.append(line)
+                self.map_data.append(line) # Appends data to the variable
 
 
     def new(self):
-        self.level_start_time = pygame.time.get_ticks() # record level start time
-        # creates all objects
-        self.all_sprites = pygame.sprite.LayeredUpdates()
+        self.level_start_time = pygame.time.get_ticks() # Record level start time
+        # Create all objects
+        self.all_sprites = pygame.sprite.LayeredUpdates() # Allow sprites to be layered
         self.walls = pygame.sprite.Group()
         self.stones = pygame.sprite.Group()
         self.flags = pygame.sprite.Group()
         self.grass = pygame.sprite.Group()
         self.logs = pygame.sprite.Group()
         self.waters = pygame.sprite.Group()
+        self.portals = pygame.sprite.Group()
+        # Add elements to the screen as indicated by the map file
         for row, tiles in enumerate(self.map_data):
             for col, tile in enumerate(tiles):
                 if tile == '1':
@@ -64,7 +73,9 @@ class Game:
                     Log(self, col, row)
                 if tile == 'W':
                     Water(self, col, row)
-        self.run() # game runs every time it is called
+                if tile == 'S':
+                    Portal(self, col, row)
+        self.run() # Game runs every time it is called
 
 
     def run(self):
@@ -99,7 +110,8 @@ class Game:
             # moves the selected sprite
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    self.pause_settings()
+                    self.pause_settings() # Show pause screen
+                # Move only if a sprite is selected
                 if hasattr(self, 'selected_sprite') and self.selected_sprite is not None:
                     # key events for WASD and arrow keys
                     if event.key == pygame.K_LEFT or event.key == pygame.K_a:
@@ -112,7 +124,7 @@ class Game:
                         self.selected_sprite.move(dy=1)
 
 
-    # draws the grey lines to show the grid
+    # Draws the grey lines to show the grid
     def draw_grid(self):
         for x in range(0, WIDTH, TILESIZE):
             pygame.draw.line(self.screen, SILVER, (x, 0), (x, HEIGHT))
@@ -120,27 +132,35 @@ class Game:
             pygame.draw.line(self.screen, SILVER, (0, y), (WIDTH, y))
         
     def draw(self):
-        self.screen.fill(BLACK)
+        # Draw background floor and grid
+        for y in range(0, HEIGHT, TILESIZE):
+            for x in range(0, WIDTH, TILESIZE):
+                self.screen.blit(self.floor_image, (x, y))
         self.draw_grid()
         self.all_sprites.draw(self.screen)
 
-        # Draw level label
-        self.draw_text("Level: " + str(self.level), 22, WHITE, 50, 10)
-
-        # Calculate and display time elapsed with every level
+        # Draw HUD at top displaying game stats
+        hud_y = 20
+        margin = 20
+        level_text = "Level: " + str(self.level)
         elapsed_ms = pygame.time.get_ticks() - self.level_start_time
-        self.draw_text("Time: " + str(elapsed_ms) + "ms", 22, WHITE, 300, 10)
+        time_text = "Time: {:.1f}s".format(elapsed_ms / 1000)
+        level_score = round(100000 / (elapsed_ms / 1000 + 20) + 100) # Score calculation algorithm
+        score_text = "Score: " + str(level_score)
 
-        # Calculate and display score based on time
-        level_score = round(100000/(elapsed_ms/1000 + 20) + 100)
-        self.draw_text("Score: " + str(level_score), 22, WHITE, 550, 10)
-
+        self.draw_text(level_text, 22, WHITE, margin, hud_y, align="left")
+        self.draw_text(time_text, 22, WHITE, WIDTH / 2, hud_y, align="center")
+        self.draw_text(score_text, 22, WHITE, WIDTH - margin, hud_y, align="right")
+        
+        # If a sprite is selected, show an overlay on it.
         if self.selected_sprite is not None:
             overlay = pygame.Surface((self.selected_sprite.rect.width, self.selected_sprite.rect.height), pygame.SRCALPHA)
             overlay.fill((0, 0, 0, 100))
             self.screen.blit(overlay, self.selected_sprite.rect)
+        
         pygame.display.flip()
     
+    # Checks whether the user has clicked on a button
     def wait_for_click(self, button_rect):
         waiting = True
         while waiting:
@@ -154,6 +174,7 @@ class Game:
                     if button_rect.collidepoint(event.pos):
                         return True
 
+    # Waits for a key to be pressed
     def wait_for_key(self):
         waiting = True
         while waiting:
@@ -166,42 +187,52 @@ class Game:
                 if event.type == pygame.KEYDOWN:
                     return True
     
-    def draw_text(self, text, size, colour, x, y):
+    # Draws text on the screen and aligns to center unless specified otherwise
+    def draw_text(self, text, size, colour, x, y, align="center"):
         font = pygame.font.Font(pygame.font.match_font('arial'), size)
         text_surface = font.render(text, True, colour)
         text_rect = text_surface.get_rect()
-        text_rect.midtop = (x, y)
+        if align == "center":
+            text_rect.center = (x, y)
+        elif align == "left":
+            text_rect.midleft = (x, y)
+        elif align == "right":
+            text_rect.midright = (x, y)
         self.screen.blit(text_surface, text_rect)
 
+    # Shows the start screen with the title and play button
     def show_start_screen(self):
-        # draw the original play button
-        play_button = pygame.Rect(WIDTH / 2 - 50, HEIGHT / 2, 100, 50)
+        # Draw the play button
+        play_button = pygame.Rect(WIDTH / 2 - 10, HEIGHT / 2 + 89, 90, 40)
         while True:
             self.screen.fill(BLACK)
-            self.draw_text(TITLE, 30, WHITE, WIDTH / 2, HEIGHT / 2 - 50)
-
-            # determine mouse position
+            title_rect = self.title_image.get_rect()
+            title_rect.midtop = (WIDTH / 2, HEIGHT / 1000)
+            self.screen.blit(self.title_image, title_rect)
+            # Determine mouse position
             mous_pos = pygame.mouse.get_pos()
             if play_button.collidepoint(mous_pos):
-                # draws the box grey if the mouse is over it
+                # Draws the box grey if the mouse is over it
                 pygame.draw.rect(self.screen, GREY, play_button)
             else:
                 # but draws a white box if not
                 pygame.draw.rect(self.screen, WHITE, play_button)
 
-            self.draw_text("Play", 22, BLACK, WIDTH / 2, HEIGHT / 2 + 10)
+            self.draw_text("Play", 22, BLACK, play_button.centerx, play_button.centery)
             pygame.display.flip()
 
-            # this loop waits for the user to click the play button
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
                     return False
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if play_button.collidepoint(event.pos):
+                        # Show the tutorial screen right after the play button is pressed
+                        self.show_tutorial_screen()
                         return True
             self.clock.tick(FPS)
 
+    # Shows the game over screen when the player loses
     def show_gameover_screen(self):
         self.screen.fill(BLACK)
         self.draw_text("GAME OVER", 48, WHITE, WIDTH / 2, HEIGHT / 4)
@@ -209,6 +240,7 @@ class Game:
         pygame.display.flip()
         return self.wait_for_key()
     
+    # Shows the congratulations screen when the player wins
     def show_congrats_screen(self, score, elapsed_ms):
         self.screen.fill(BLACK)
         self.draw_text("Congratulations!", 48, WHITE, WIDTH / 2, HEIGHT / 4)
@@ -218,6 +250,34 @@ class Game:
         pygame.display.flip()
         return self.wait_for_key()
     
+    # Shows the end screen with the final score and time taken
+    def show_end_screen(self):
+        self.screen.fill(BLACK)
+        # Load and display the finale image
+        finale_image = pygame.image.load(path.join(path.dirname(__file__), "Finale.png")).convert_alpha()
+        finale_rect = finale_image.get_rect()
+        finale_rect.center = (WIDTH / 2, HEIGHT / 2)
+        self.screen.blit(finale_image, finale_rect)
+        
+        # Display the total score (use self.total_score) below the finale image
+        self.draw_text(self.total_score, 24, WHITE, WIDTH / 2, HEIGHT - 50, align="center")
+        
+        pygame.display.flip()
+        self.wait_for_key()
+        pygame.quit()
+        sys.exit()
+    
+    # Shows the tutorial screen with instructions
+    def show_tutorial_screen(self):
+        self.screen.fill(BLACK)
+        tutorial_rect = self.tutorial_image.get_rect()
+        tutorial_rect.center = (WIDTH / 2, HEIGHT / 2)
+        self.screen.blit(self.tutorial_image, tutorial_rect)
+        pygame.display.flip()
+        # Wait until a key is pressed before proceeding
+        self.wait_for_key()
+
+    # Shows the pause/settings screen
     def pause_settings(self):
         # Record when pause begins so we can adjust elapsed time later
         pause_start = pygame.time.get_ticks()
@@ -238,9 +298,9 @@ class Game:
                     paused = False
                     self.running = False
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
+                    if event.key == pygame.K_ESCAPE: # Pause game when ESC is pressed
                         paused = False
-                    elif event.key == pygame.K_m:
+                    elif event.key == pygame.K_m: # Toggle music when M pressed
                         # Toggle music on/off
                         if self.music_on:
                             pygame.mixer.music.pause()
@@ -248,7 +308,7 @@ class Game:
                         else:
                             pygame.mixer.music.unpause()
                             self.music_on = True
-        # Adjust the level_start_time so the paused period isn’t counted
+        # Adjust the level_start_time so the paused period isn’t counted in score
         pause_duration = pygame.time.get_ticks() - pause_start
         self.level_start_time += pause_duration
 
@@ -257,6 +317,4 @@ while game.running:
     playing = game.show_start_screen()
     while playing and game.running:
         game.new()
-        playing = game.show_gameover_screen()
-
 pygame.quit()
